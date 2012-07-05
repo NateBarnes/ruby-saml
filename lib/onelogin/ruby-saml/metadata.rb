@@ -30,7 +30,7 @@ module Onelogin
           ki = kd.add_element "ds:KeyInfo", {
             "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#"
           }
-          xd = kd.add_element "ds:X509Data", {}
+          xd = ki.add_element "ds:X509Data", {}
           xc = xd.add_element "ds:X509Certificate", {}
           xc.text = settings.idp_cert
         end
