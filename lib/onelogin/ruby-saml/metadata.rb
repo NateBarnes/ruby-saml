@@ -16,10 +16,23 @@ module Onelogin
             "xmlns:md" => "urn:oasis:names:tc:SAML:2.0:metadata" 
         }
         sp_sso = root.add_element "md:SPSSODescriptor", { 
+            "AuthnRequestsSigned" => "false",
+            "WantAssertionsSigned" => "true",
             "protocolSupportEnumeration" => "urn:oasis:names:tc:SAML:2.0:protocol"
         }
         if settings.issuer != nil
           root.attributes["entityID"] = settings.issuer
+        end
+        if settings.idp_cert != nil
+          kd = sp_sso.add_element "md:KeyDescriptor", {
+            "use" => "signing"
+          }
+          ki = kd.add_element "ds:KeyInfo", {
+            "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#"
+          }
+          xd = kd.add_element "ds:X509Data", {}
+          xc = xd.add_element "ds:X509Certificate", {}
+          xc.text = settings.idp_cert
         end
         if settings.name_identifier_format != nil
           name_id = sp_sso.add_element "md:NameIDFormat"
