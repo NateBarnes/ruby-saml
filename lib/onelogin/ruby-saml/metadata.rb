@@ -30,7 +30,7 @@ module Onelogin
               # Add this as a setting to create different bindings?
               "Binding" => "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST",
               "Location" => settings.assertion_consumer_service_url,
-              "Index" => "0"
+              "Index" => "0",
               "isDefault" => "true"
           }
         end
