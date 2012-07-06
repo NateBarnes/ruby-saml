@@ -40,6 +40,9 @@ module Onelogin
         @name_id ||= begin
           node = REXML::XPath.first(document, "/p:Response/a:Assertion[@ID='#{document.signed_element_id}']/a:Subject/a:NameID", { "p" => PROTOCOL, "a" => ASSERTION })
           node ||=  REXML::XPath.first(document, "/p:Response[@ID='#{document.signed_element_id}']/a:Assertion/a:Subject/a:NameID", { "p" => PROTOCOL, "a" => ASSERTION })
+          base_attr = REXML::XPath.first(document, "//Attribute Name=\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name\"")
+          base_attr = base_attr.nil? nil : REXML::XPath.first(base_attr)
+          node ||= base_attr.nil? nil : base_attr.text
           node.nil? ? nil : node.text
         end
       end
