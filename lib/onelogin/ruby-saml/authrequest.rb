@@ -32,7 +32,7 @@ module Onelogin
           root.add_element "samlp:NameIDPolicy", { 
               "xmlns:samlp" => "urn:oasis:names:tc:SAML:2.0:protocol",
               # Might want to make AllowCreate a setting?
-              "AllowCreate" => "true",
+              #"AllowCreate" => "true",
               "Format" => settings.name_identifier_format
           }
         end
